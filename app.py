@@ -57,7 +57,7 @@ def communicate():
     st.session_state["user_input"] = ""
 
 
-st.title(" ChatISO")
+st.title(" Chat ISO")
 # st.image("04_programming.png")
 # st.write("小生とお話ししませんか？")
 
