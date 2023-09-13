@@ -38,11 +38,11 @@ def communicate():
     st.session_state["user_input"] = ""
 
 
-st.title(" ChatMRT")
+st.title(" ChatISO")
 # st.image("04_programming.png")
-# st.write("なんでも聞くでちゅ！")
+# st.write("小生とお話ししましょう。")
 
-user_input = st.text_input("なんでも聞くでちゅ。", key="user_input", on_change=communicate)
+user_input = st.text_input("小生とお話ししましょう。", key="user_input", on_change=communicate)
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
