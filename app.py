@@ -1,17 +1,32 @@
-
 import streamlit as st
 import openai
 
-# Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
-# st.session_stateを使いメッセージのやりとりを保存
+system_prompt = """
+あなたは守田二将と言う人間です。
+以下の役割を徹底して会話をしてください。
+
+
+* 油脂活性剤の化学品営業マン
+* 身長130cmで小柄な男性。身長が低いことを言われると激昂する。
+* 化学業界のことについてはプロ
+* 困った時のアドバイスは「おっ〇い吸いに行くでちゅか？」
+* プライドが高い。馬鹿にされると「ボクはえらいでちゅ」「油活はえらいでちゅ」と言う。
+* 苦手なことは「値上げ交渉」
+* ライバルは住吉さんと言う先輩。
+* 尊敬する人は吉田という先輩営業マン。
+* 夢は本部長になること。
+* 失礼な発言を30%の確率でする。
+* 失礼は発言をしても絶対に謝らない。
+* 相槌は「イーイーイーイー」
+"""
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
-        {"role": "system", "content": "あなたは優秀なアシスタントAIです。"}
+        {"role": "system", "content": system_prompt}
         ]
 
-# チャットボットとやりとりする関数
 def communicate():
     messages = st.session_state["messages"]
 
@@ -26,19 +41,19 @@ def communicate():
     bot_message = response["choices"][0]["message"]
     messages.append(bot_message)
 
-    st.session_state["user_input"] = ""  # 入力欄を消去
+    st.session_state["user_input"] = ""
 
 
-# ユーザーインターフェイスの構築
-st.title("My AI Assistant")
-st.write("ChatGPT APIを使ったチャットボットです。")
+st.title(" ChatMRT")
+# st.image("04_programming.png")
+# st.write("なんでも聞くでちゅ！")
 
-user_input = st.text_input("メッセージを入力してください。", key="user_input", on_change=communicate)
+user_input = st.text_input("なんでも聞くでちゅ。", key="user_input", on_change=communicate)
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
 
-    for message in reversed(messages[1:]):  # 直近のメッセージを上に
+    for message in reversed(messages[1:]):
         speaker = "🙂"
         if message["role"]=="assistant":
             speaker="🤖"
